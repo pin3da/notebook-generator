@@ -1,6 +1,6 @@
 {
   "name": "notebook-generator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Notebook generator for programming contest. (or \"something useful to share your code in pdf\")",
   "main": "notebookgen.js",
   "scripts": {
