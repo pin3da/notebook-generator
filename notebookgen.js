@@ -9,13 +9,16 @@ var extensions = ['.cc', '.cpp', '.c', '.java', '.py'];
 
 function walk(_path, depth) {
   var ans = "";
+  depth = Math.min(depth, section.length - 1);
   fs.readdirSync(_path).forEach(function (file) {
     var f = path.resolve(_path, file);
     var stat = fs.lstatSync(f);
     if (stat.isDirectory())
       ans += '\n' + section[depth] + file + '}\n' + walk(f, depth + 1);
-    else if (extensions.indexOf(path.extname(f)) != -1)
+    else if (extensions.indexOf(path.extname(f)) != -1) {
+      ans += '\n' + section[depth] + file.split('.')[0] + '}\n';
       ans +=  '\\begin{lstlisting}\n' + fs.readFileSync(f) + '\\end{lstlisting}\n';
+    }
   });
   return ans;
 }
