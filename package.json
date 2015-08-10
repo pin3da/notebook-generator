@@ -1,0 +1,21 @@
+{
+  "name": "notebook-generator",
+  "version": "1.0.0",
+  "description": "Notebook generator for programming contest. (or \"something useful to share your code in pdf\")",
+  "main": "notebookgen.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "pdf",
+    "notebook-icpc",
+    "programming",
+    "contest"
+  ],
+  "author": "Manuel Pineda <manuel.felipe.pineda@gmail.com> (http://github.com/pin3da)",
+  "license": "MPLv2",
+  "dependencies": {
+    "latex": "0.0.1",
+    "through2": "^2.0.0"
+  }
+}

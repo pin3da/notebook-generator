@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+
+var notebookgen = require('../notebookgen.js');
+
+if (process.argv.length < 3) {
+  console.log('Usage: ' + process.argv[0] + ' ' + process.argv[1] + ' codes_dir <output_path>');
+  process.exit(1);
+}
+
+notebookgen(process.argv[2], process.argv[3]);
