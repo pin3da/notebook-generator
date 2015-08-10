@@ -13,6 +13,13 @@
     "contest"
   ],
   "author": "Manuel Pineda <manuel.felipe.pineda@gmail.com> (http://github.com/pin3da)",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/pin3da/notebook-generator"
+  },
+  "bugs": {
+    "url": "http://github.com/pin3da/notebook-generator/issues"
+  },
   "license": "MPLv2",
   "dependencies": {
     "latex": "0.0.1",
