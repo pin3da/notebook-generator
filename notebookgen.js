@@ -5,7 +5,7 @@ var fs       = require('fs'),
 
 
 var section = ['\\section{', '\\subsection{', '\\subsubsection{'];
-var extensions = ['.cc', '.cpp', '.c', '.java', '.py'];
+var extensions = ['.cc', '.cpp', '.c', '.java', '.py', '.tex'];
 
 function walk(_path, depth) {
   var ans = "";
@@ -17,7 +17,10 @@ function walk(_path, depth) {
       ans += '\n' + section[depth] + file + '}\n' + walk(f, depth + 1);
     else if (extensions.indexOf(path.extname(f)) != -1) {
       ans += '\n' + section[depth] + file.split('.')[0] + '}\n';
-      ans +=  '\\begin{lstlisting}\n' + fs.readFileSync(f) + '\\end{lstlisting}\n';
+      if (path.extname(f) != '.tex')
+        ans += '\\begin{lstlisting}\n' + fs.readFileSync(f) + '\\end{lstlisting}\n';
+      else
+        ans += fs.readFileSync(f);
     }
   });
   return ans;
