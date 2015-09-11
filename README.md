@@ -22,7 +22,8 @@ example:
 
 The second one will create a 'notebook.pdf' file in the current directory.
 
-This is an example in pdf : https://github.com/pin3da/notebook-generator/blob/master/example-notebook.pdf
+This is an example in pdf : https://github.com/pin3da/Programming-contest/blob/master/codes/notebook.pdf
+
 
 ## Files
 
