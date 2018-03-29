@@ -33,7 +33,9 @@ example:
 
 The second one will create a 'notebook.pdf' file in the current directory.
 
-This is output example : https://github.com/pin3da/notebook-generator/blob/master/example-notebook.pdf
+## Example PDF
+
+Here you can find an example PDF: https://github.com/pin3da/notebook-generator/blob/master/example-notebook.pdf
 
 ## Files
 
