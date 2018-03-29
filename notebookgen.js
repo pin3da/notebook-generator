@@ -74,8 +74,12 @@ function pdflatex(doc, iter) {
   return ans;
 }
 
-module.exports =  function(path, output) {
+module.exports =  function(path, output, author, initials) {
   var template = fs.readFileSync(__dirname + '/template_header.tex').toString();
+  template = template
+    .replace('${author}', author)
+    .replace('${initials}', initials)
+
   template += walk(path, 0);
   template += '\\end{document}';
   output = output || './notebook.pdf';

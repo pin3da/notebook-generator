@@ -1,6 +1,6 @@
 {
   "name": "notebook-generator",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Notebook generator for programming contest. (or \"something useful to share your code in pdf\")",
   "main": "notebookgen.js",
   "scripts": {
@@ -20,8 +20,9 @@
   "bugs": {
     "url": "http://github.com/pin3da/notebook-generator/issues"
   },
-  "license": "MPLv2",
+  "license": "MPL-2.0",
   "dependencies": {
+    "commander": "^2.15.1",
     "latex": "0.0.1",
     "through2": "^2.0.0"
   },

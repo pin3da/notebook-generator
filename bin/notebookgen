@@ -1,10 +1,25 @@
 #!/usr/bin/env node
 
 var notebookgen = require('../notebookgen.js');
+var program = require('commander');
 
-if (process.argv.length < 3) {
-  console.log('Usage: ' + process.argv[0] + ' ' + process.argv[1] + ' codes_dir <output_path>');
+program
+  .version('1.1.0')
+  .usage('<soruce_dir> [options]')
+  .description('Auto generate notebooks from your source code')
+  .option('-a --author [name]', 'author\'s name to be added in the notebook')
+  .option('-i --initials [initials]', 'initials of the author to be placed in the upper-right corner of all pages')
+  .option('-o --output [filename]', 'output file for the notebook. Default to `./notebook.pdf`')
+
+
+program.parse(process.argv);
+
+if (program.args.length < 1) {
+  console.error('The source_dir is required.\nRun `notebookgen --help`' );
   process.exit(1);
 }
 
-notebookgen(process.argv[2], process.argv[3]);
+program.output = program.output || './notebook.pdf';
+program.author = program.author || '';
+program.initials = program.initials || '';
+notebookgen(program.args[0], program.output, program.author, program.initials);
