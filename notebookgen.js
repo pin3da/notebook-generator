@@ -11,6 +11,9 @@ function walk(_path, depth) {
   var ans = "";
   depth = Math.min(depth, section.length - 1);
   fs.readdirSync(_path).forEach(function (file) {
+    if (file.startsWith(".")) {
+      return; // hidden directory
+    }
     var f = path.resolve(_path, file);
     var stat = fs.lstatSync(f);
     if (stat.isDirectory())
