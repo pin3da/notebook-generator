@@ -35,7 +35,7 @@ The second one will create a 'notebook.pdf' file in the current directory.
 
 ## Example PDF
 
-Here you can find an example PDF: https://github.com/pin3da/notebook-generator/blob/master/example-notebook.pdf
+Here you can find an example https://github.com/pin3da/Programming-contest/blob/master/codes/notebook.pdf
 
 ## Files
 
