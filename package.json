@@ -24,7 +24,8 @@
   "dependencies": {
     "commander": "^2.15.1",
     "latex": "0.0.1",
-    "through2": "^2.0.0"
+    "through2": "^2.0.0",
+    "tmp": "0.0.33"
   },
   "bin": {
     "notebook-generator": "./bin/notebookgen"

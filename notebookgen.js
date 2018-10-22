@@ -1,7 +1,8 @@
 var fs       = require('fs'),
     path     = require('path'),
     spawn    = require('child_process').spawn,
-    through2 = require('through2');
+    through2 = require('through2'),
+    tmp = require('tmp');
 
 
 var section = ['\\section{', '\\subsection{', '\\subsubsection{'];
@@ -33,12 +34,12 @@ function walk(_path, depth) {
 /**
  * pdf must be generated twice in order to generate the table of contents.
  * */
-function genpdf(ans, tex_path, iter) {
+function genpdf(ans, tex_path, tmpobj, iter) {
   var tex = spawn('pdflatex', [
       '-interaction=nonstopmode',
       tex_path
   ], {
-    cwd: '/tmp',
+    cwd: tmpobj.name,
     env: process.env
   });
 
@@ -52,9 +53,13 @@ function genpdf(ans, tex_path, iter) {
       if (exists) {
         if (iter == 1) {
           var s = fs.createReadStream(output_file);
+          console.log(fs.readdirSync(tmpobj.name));
           s.pipe(ans);
+          s.on('close', function(){
+            tmpobj.removeCallback();
+          });
         } else {
-          genpdf(ans, tex_path, iter + 1);
+          genpdf(ans, tex_path, tmpobj, iter + 1);
         }
       } else {
         console.error('Not generated ' + code + ' : ' + signal);
@@ -64,27 +69,32 @@ function genpdf(ans, tex_path, iter) {
 }
 
 function pdflatex(doc, iter) {
-  var tex_path = '/tmp/_notebook.tex';
+  var tmpobj = tmp.dirSync({unsafeCleanup: true});
+  
+  console.log("Dir: ", tmpobj.name);
+  var tex_path = path.join(tmpobj.name, '_notebook.tex');
 
   var ans   = through2();
   ans.readable = true;
   var input = fs.createWriteStream(tex_path);
   input.end(doc);
   input.on('close', function() {
-    genpdf(ans, tex_path, 0)
+    genpdf(ans, tex_path, tmpobj, 0);
   });
 
   return ans;
 }
 
-module.exports =  function(path, output, author, initials) {
-  var template = fs.readFileSync(__dirname + '/template_header.tex').toString();
+module.exports = async function(_path, output, author, initials) {
+  var template = fs.readFileSync(path.join(__dirname, 'template_header.tex')).toString();
   template = template
     .replace('${author}', author)
     .replace('${initials}', initials)
-
-  template += walk(path, 0);
+ 
+  template += walk(_path, 0);
   template += '\\end{document}';
   output = output || './notebook.pdf';
+
   pdflatex(template).pipe(fs.createWriteStream(output));
+  //tmpobj.removeCallback();
 }
