@@ -53,7 +53,6 @@ function genpdf(ans, tex_path, tmpobj, iter) {
       if (exists) {
         if (iter == 1) {
           var s = fs.createReadStream(output_file);
-          console.log(fs.readdirSync(tmpobj.name));
           s.pipe(ans);
           s.on('close', function(){
             tmpobj.removeCallback();
@@ -70,8 +69,6 @@ function genpdf(ans, tex_path, tmpobj, iter) {
 
 function pdflatex(doc, iter) {
   var tmpobj = tmp.dirSync({unsafeCleanup: true});
-  
-  console.log("Dir: ", tmpobj.name);
   var tex_path = path.join(tmpobj.name, '_notebook.tex');
 
   var ans   = through2();
@@ -85,7 +82,7 @@ function pdflatex(doc, iter) {
   return ans;
 }
 
-module.exports = async function(_path, output, author, initials) {
+module.exports = function(_path, output, author, initials) {
   var template = fs.readFileSync(path.join(__dirname, 'template_header.tex')).toString();
   template = template
     .replace('${author}', author)
@@ -94,7 +91,5 @@ module.exports = async function(_path, output, author, initials) {
   template += walk(_path, 0);
   template += '\\end{document}';
   output = output || './notebook.pdf';
-
   pdflatex(template).pipe(fs.createWriteStream(output));
-  //tmpobj.removeCallback();
 }
