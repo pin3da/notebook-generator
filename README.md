@@ -1,15 +1,17 @@
 # notebook-generator
 (Auto) generate notebooks from your source code. Useful for ACM-ICPC
 
-
 ## Dependencies
-pdflatex
 
-    [sudo] aptitude install texlive
+This generator works in both linux and windows, so check how to install texlive in your OS.
+
+texlive for linux:
+
+    aptitude install texlive
 
 ## Install
 
-    [sudo] npm install -g notebook-generator
+    npm install -g notebook-generator
 
 ## Use
 
