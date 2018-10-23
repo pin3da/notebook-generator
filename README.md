@@ -9,13 +9,17 @@ texlive for linux:
 
     aptitude install texlive
 
+texlive for windows:
+
+    download installer (install-tl-windows.exe) from https://www.tug.org/texlive/acquire-netinstall.html
+
 ## Install
 
     npm install -g notebook-generator
 
 ## Use
 
-    Usage: notebookgen <soruce_dir> [options]
+    Usage: notebook-generator <soruce_dir> [options]
 
     Auto generate notebooks from your source code
 
