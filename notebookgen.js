@@ -83,8 +83,8 @@ function pdflatex (doc) {
 module.exports = function (_path, output, author, initials) {
   let template = fs.readFileSync(path.join(__dirname, 'template_header.tex')).toString()
   template = template
-    .replace('${author}', author)
-    .replace('${initials}', initials)
+    .replace(`\${author}`, author)
+    .replace(`\${initials}`, initials)
 
   template += walk(_path, 0)
   template += '\\end{document}'
