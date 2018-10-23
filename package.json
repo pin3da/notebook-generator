@@ -4,7 +4,7 @@
   "description": "Notebook generator for programming contest. (or \"something useful to share your code in pdf\")",
   "main": "notebookgen.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "standard"
   },
   "keywords": [
     "pdf",
@@ -29,5 +29,8 @@
   },
   "bin": {
     "notebook-generator": "./bin/notebookgen"
+  },
+  "devDependencies": {
+    "standard": "^12.0.1"
   }
 }
