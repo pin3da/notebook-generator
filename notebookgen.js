@@ -52,7 +52,7 @@ function genpdf (ans, texPath, tmpobj, iter) {
       if (err) {
         return console.error('Not generated ' + code + ' : ' + signal)
       }
-      if (iter === 1) {
+      if (iter === 2) {
         let s = fs.createReadStream(outputFile)
         s.pipe(ans)
         s.on('close', function () {
