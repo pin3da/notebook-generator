@@ -32,8 +32,9 @@ function walk (_path, depth) {
 
 /**
  * pdf must be generated twice in order to generate the table of contents.
+ * According to some tests, in windows it must be generated 3 times.
  * */
-function genpdf (ans, texPath, tmpobj, iter, n) {
+function genpdf (ans, texPath, tmpobj, iter) {
   let tex = spawn('pdflatex', [
     '-interaction=nonstopmode',
     texPath
@@ -52,14 +53,14 @@ function genpdf (ans, texPath, tmpobj, iter, n) {
       if (err) {
         return console.error('Not generated ' + code + ' : ' + signal)
       }
-      if (iter === n) {
+      if (iter === 0) {
         let s = fs.createReadStream(outputFile)
         s.pipe(ans)
         s.on('close', function () {
           tmpobj.removeCallback()
         })
       } else {
-        genpdf(ans, texPath, tmpobj, iter + 1, n)
+        genpdf(ans, texPath, tmpobj, iter - 1)
       }
     })
   })
@@ -74,9 +75,8 @@ function pdflatex (doc) {
   let input = fs.createWriteStream(texPath)
   input.end(doc)
   input.on('close', function () {
-    var n = 1;
-    if(process.platform == 'win32') n = 2;
-    genpdf(ans, texPath, tmpobj, 0, n)
+    let iters = process.platform === 'win32' ? 2 : 1
+    genpdf(ans, texPath, tmpobj, iters)
   })
 
   return ans
