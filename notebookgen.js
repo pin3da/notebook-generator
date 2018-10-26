@@ -33,7 +33,7 @@ function walk (_path, depth) {
 /**
  * pdf must be generated twice in order to generate the table of contents.
  * */
-function genpdf (ans, texPath, tmpobj, iter) {
+function genpdf (ans, texPath, tmpobj, iter, n) {
   let tex = spawn('pdflatex', [
     '-interaction=nonstopmode',
     texPath
@@ -52,14 +52,14 @@ function genpdf (ans, texPath, tmpobj, iter) {
       if (err) {
         return console.error('Not generated ' + code + ' : ' + signal)
       }
-      if (iter === 1) {
+      if (iter === n) {
         let s = fs.createReadStream(outputFile)
         s.pipe(ans)
         s.on('close', function () {
           tmpobj.removeCallback()
         })
       } else {
-        genpdf(ans, texPath, tmpobj, iter + 1)
+        genpdf(ans, texPath, tmpobj, iter + 1, n)
       }
     })
   })
@@ -74,7 +74,9 @@ function pdflatex (doc) {
   let input = fs.createWriteStream(texPath)
   input.end(doc)
   input.on('close', function () {
-    genpdf(ans, texPath, tmpobj, 0)
+    var n = 1;
+    if(process.platform == 'win32') n = 2;
+    genpdf(ans, texPath, tmpobj, 0, n)
   })
 
   return ans
