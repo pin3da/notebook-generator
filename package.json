@@ -1,6 +1,6 @@
 {
   "name": "notebook-generator",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Notebook generator for programming contest. (or \"something useful to share your code in pdf\")",
   "main": "notebookgen.js",
   "scripts": {
@@ -10,7 +10,16 @@
     "pdf",
     "notebook-icpc",
     "programming",
-    "contest"
+    "contest",
+    "hacker",
+    "competitive",
+    "coding",
+    "codechef",
+    "codeforces",
+    "ACM",
+    "ICPC",
+    "codejam",
+    "hackerrank"
   ],
   "author": "Manuel Pineda <manuel.felipe.pineda@gmail.com> (http://github.com/pin3da)",
   "repository": {
