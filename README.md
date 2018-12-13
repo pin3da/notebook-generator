@@ -3,15 +3,15 @@
 
 ## Dependencies
 
-This generator works in both linux and windows, so check how to install texlive in your OS.
+This generator works in both Linux and Windows, so check how to install texlive in your OS.
 
-texlive for linux:
+texlive for Linux:
 
     aptitude install texlive
 
-texlive for windows:
+texlive for Windows:
 
-    download installer (install-tl-windows.exe) from https://www.tug.org/texlive/acquire-netinstall.html
+    download installer (install-tl-Windows.exe) from https://www.tug.org/texlive/acquire-netinstall.html
 
 ## Install
 
@@ -19,7 +19,7 @@ texlive for windows:
 
 ## Use
 
-    Usage: notebook-generator <soruce_dir> [options]
+    Usage: notebook-generator <source_dir> [options]
 
     Auto generate notebooks from your source code
 
