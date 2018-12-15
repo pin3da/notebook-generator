@@ -54,4 +54,4 @@ you can add .tex files which will be rendered as latex code.
 - Use spaces insead of underscore (in the filenames) to print a prettier TOC.
 
 ----
-[Manuel Pineda](https://github.com/pin3da/)
+[Manuel Pineda](https://github.com/pin3da/) & [Diego Restrepo](https://github.com/Diegores14)
