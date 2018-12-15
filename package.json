@@ -1,6 +1,6 @@
 {
   "name": "notebook-generator",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Notebook generator for programming contest. (or \"something useful to share your code in pdf\")",
   "main": "notebookgen.js",
   "scripts": {
@@ -22,6 +22,9 @@
     "hackerrank"
   ],
   "author": "Manuel Pineda <manuel.felipe.pineda@gmail.com> (http://github.com/pin3da)",
+  "contributors": [
+    "Diego Alejandro Restrepo <diegorestrepo68@utp.edu.co> (https://github.com/Diegores14)"
+  ],
   "repository": {
     "type": "git",
     "url": "http://github.com/pin3da/notebook-generator"
