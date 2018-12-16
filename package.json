@@ -34,7 +34,7 @@
   },
   "license": "MPL-2.0",
   "dependencies": {
-    "commander": "^2.15.1",
+    "commander": "^2.19.0",
     "latex": "0.0.1",
     "through2": "^2.0.0",
     "tmp": "0.0.33"
