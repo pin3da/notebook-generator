@@ -1,4 +1,4 @@
-\documentclass[${FontSize},letterpaper,twocolumn,twosided]{extarticle}
+\documentclass[${FontSize},${paper},landscape,twosided]{extarticle}
 
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
@@ -9,8 +9,9 @@
 \usepackage{hyperref}
 \usepackage{color}
 \usepackage{geometry}
+\usepackage{multicol}
 
-\geometry{verbose,landscape,letterpaper,tmargin=2cm,bmargin=2cm,lmargin=1cm,rmargin=1cm}
+\geometry{verbose,landscape,${paper},tmargin=2cm,bmargin=2cm,lmargin=1cm,rmargin=1cm}
 
 \usepackage{listings}
 \usepackage{color}
@@ -52,6 +53,7 @@
 \title{Team notebook}
 \author{${author}}
 \maketitle
+\begin{multicols}{${columns}}
 \tableofcontents
 \lstloadlanguages{C++,Java}
 

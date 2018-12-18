@@ -30,13 +30,15 @@ texlive for Windows:
         -i --initials [initials]  initials of the author to be placed in the upper-right corner of all pages
         -o --output [filename]    output file for the notebook. Default to `./notebook.pdf`
         -s --size <size>          Font Size is allowed 8, 9, 10, 11, 12, 14, 17, 20 pt (default: "10")
+        -c --columns <amount>     number of columns is allowed 2, 3 (default: "2")
+        -p --paper <size>         the paper size is allowed letterpaper, a4paper, a5paper (default: "letterpaper")
         -h, --help                output usage information
 
 
 example:
 
     notebook-generator ./ /tmp/team_reference.pdf
-    notebook-generator ./ --author "Universidad Tecnologica de Pereira" --initials UTP --size 12
+    notebook-generator ./ --author "Universidad Tecnologica de Pereira" --initials UTP --size 12 --columns 3 --paper a4paper
 
 The second one will create a 'notebook.pdf' file in the current directory.
 
