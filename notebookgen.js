@@ -92,7 +92,7 @@ module.exports = function (_path, output, author, initials, FontSize, columns, p
     .replace(`\${paper}`, paper)
 
   template += walk(_path, 0)
-  template += '\\end{multicols}'
+  template += '\\end{multicols}\n'
   template += '\\end{document}'
   output = output || './notebook.pdf'
   pdflatex(template).pipe(fs.createWriteStream(output))
