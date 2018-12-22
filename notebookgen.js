@@ -82,18 +82,23 @@ function pdflatex (doc) {
   return ans
 }
 
-module.exports = function (_path, output, author, initials, FontSize, columns, paper) {
+module.exports = function (_path, options) {
+  options.output = options.output || './notebook.pdf'
+  options.author = options.author || ''
+  options.initials = options.initials || ''
+
+  if (!options.size.endsWith('pt')) options.size += 'pt'
+
   let template = fs.readFileSync(path.join(__dirname, 'template_header.tex')).toString()
   template = template
-    .replace(`\${author}`, author)
-    .replace(`\${initials}`, initials)
-    .replace(`\${FontSize}`, FontSize)
-    .replace(`\${columns}`, columns)
-    .replace(`\${paper}`, paper)
+    .replace(`\${author}`, options.author)
+    .replace(`\${initials}`, options.initials)
+    .replace(`\${fontSize}`, options.size)
+    .replace(`\${columns}`, options.columns)
+    .replace(`\${paper}`, options.paper)
 
   template += walk(_path, 0)
   template += '\\end{multicols}\n'
   template += '\\end{document}'
-  output = output || './notebook.pdf'
-  pdflatex(template).pipe(fs.createWriteStream(output))
+  pdflatex(template).pipe(fs.createWriteStream(options.output))
 }
