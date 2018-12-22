@@ -27,10 +27,10 @@ texlive for Windows:
         -V, --version             output the version number
         -a --author [name]        author's name to be added in the notebook
         -i --initials [initials]  initials of the author to be placed in the upper-right corner of all pages
-        -o --output [filename]    output file for the notebook. Default to `./notebook.pdf`
+        -o --output [filename]    output file for the notebook. (default: "./notebook.pdf")
         -s --size <size>          font size (default: "10")
-        -c --columns <amount>     number of columns. Default to 2 (default: "2")
-        -p --paper <size>         paper size. Default to letterpaper (default: "letterpaper")
+        -c --columns <amount>     number of columns. (default: "2")
+        -p --paper <size>         paper size. (default: "letterpaper")
         -h, --help                output usage information
 
 
