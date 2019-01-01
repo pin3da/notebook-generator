@@ -88,6 +88,11 @@ module.exports = function (_path, options) {
   options.initials = options.initials || ''
 
   if (!options.size.endsWith('pt')) options.size += 'pt'
+  if (options.image) {
+    options.image = '\\centering{\\includegraphics[width=3.5cm]{' + options.image + '}}'
+  } else {
+    options.image = ''
+  }
 
   let template = fs.readFileSync(path.join(__dirname, 'template_header.tex')).toString()
   template = template
@@ -96,6 +101,9 @@ module.exports = function (_path, options) {
     .replace(`\${fontSize}`, options.size)
     .replace(`\${columns}`, options.columns)
     .replace(`\${paper}`, options.paper)
+    .replace(`\${image}`, options.image)
+    .replace(`\${images/}`, _path + '/')
+  console.log(template)
 
   template += walk(_path, 0)
   template += '\\end{multicols}\n'

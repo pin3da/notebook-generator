@@ -10,6 +10,7 @@
 \usepackage{color}
 \usepackage{geometry}
 \usepackage{multicol}
+\usepackage{graphicx}
 
 \geometry{verbose,landscape,${paper},tmargin=2cm,bmargin=2cm,lmargin=1cm,rmargin=1cm}
 
@@ -46,6 +47,7 @@
 \renewcommand{\headrulewidth}{0pt}
 \fancyhead[R]{\thepage}
 \fancyhead[L]{${initials}}
+\graphicspath{ {${images/}} }
 
 
 \begin{document}
@@ -54,6 +56,7 @@
 \author{${author}}
 \maketitle
 \begin{multicols}{${columns}}
+${image}
 \tableofcontents
 \lstloadlanguages{C++,Java}
 

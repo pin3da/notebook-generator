@@ -4,15 +4,16 @@ var notebookgen = require('../notebookgen.js')
 var options = require('commander')
 
 options
-  .version('1.4.1')
+  .version('1.4.4')
   .usage('<soruce_dir> [options]')
   .description('Auto generate notebooks from your source code')
   .option('-a --author [name]', 'author\'s name to be added in the notebook')
   .option('-i --initials [initials]', 'initials of the author to be placed in the upper-right corner of all pages')
   .option('-o --output [filename]', 'output file for the notebook.', './notebook.pdf')
-  .option('-s --size <size>', 'font size', /^(8|9|10|11|12|14|17|20)$/i, '10')
-  .option('-c --columns <amount>', 'number of columns.', /^(2|3)$/i, '2')
-  .option('-p --paper <size>', 'paper size.', /^(letterpaper|a4paper|a5paper)$/i, 'letterpaper')
+  .option('-s --size <size>', 'font size is allowed 8, 9, 10, 11, 12, 14, 17, 20 pt', /^(8|9|10|11|12|14|17|20)$/i, '10')
+  .option('-c --columns <amount>', 'number of columns is allowed 2, 3.', /^(2|3)$/i, '2')
+  .option('-p --paper <size>', 'paper size is allowed letterpaper, a4paper, a5paper.', /^(letterpaper|a4paper|a5paper)$/i, 'letterpaper')
+  .option('-I --image [name]', 'cover image to be added in the notebook.')
 
 options.parse(process.argv)
 
