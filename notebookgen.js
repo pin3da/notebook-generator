@@ -3,6 +3,7 @@ const path = require('path')
 const spawn = require('child_process').spawn
 const through2 = require('through2')
 const tmp = require('tmp')
+const os = require('os')
 
 const section = ['\\section{', '\\subsection{', '\\subsubsection{']
 const extensions = ['.cc', '.cpp', '.c', '.java', '.py', '.tex']
@@ -82,6 +83,25 @@ function pdflatex (doc) {
   return ans
 }
 
+function pathlatex (_path) {
+  if (os.type() === 'Windows_NT'){
+    _pathlatex = ''
+    for(var i=0; i<_path.length; i++){
+      if (_path[i] === '\\') {
+        _pathlatex += '/'
+      } else {
+        if (_path[i] === ' ') {
+          _pathlatex += '\\ '
+        }else {
+          _pathlatex += _path[i]
+        }
+      }
+    }
+    return _pathlatex
+  }
+  return _path
+}
+
 module.exports = function (_path, options) {
   options.output = options.output || './notebook.pdf'
   options.author = options.author || ''
@@ -102,8 +122,7 @@ module.exports = function (_path, options) {
     .replace(`\${columns}`, options.columns)
     .replace(`\${paper}`, options.paper)
     .replace(`\${image}`, options.image)
-    .replace(`\${images/}`, _path + '/')
-  console.log(template)
+    .replace(`\${images/}`, pathlatex(_path) + '/')
 
   template += walk(_path, 0)
   template += '\\end{multicols}\n'
