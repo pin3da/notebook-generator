@@ -6,7 +6,15 @@ const tmp = require('tmp')
 const os = require('os')
 
 const section = ['\\section{', '\\subsection{', '\\subsubsection{']
-const extensions = ['.cc', '.cpp', '.c', '.java', '.py', '.tex']
+const extensions = {
+  '.cc' : 'C++',
+  '.cpp': 'C++',
+  '.c': 'C',
+  '.java': 'Java',
+  '.py': 'Python',
+  '.tex': 'Tex',
+  '.go': 'Golang'
+}
 
 function walk (_path, depth) {
   let ans = ''
@@ -19,10 +27,10 @@ function walk (_path, depth) {
     let stat = fs.lstatSync(f)
     if (stat.isDirectory()) {
       ans += '\n' + section[depth] + file + '}\n' + walk(f, depth + 1)
-    } else if (extensions.indexOf(path.extname(f)) !== -1) {
+    } else if (path.extname(f) in extensions) {
       ans += '\n' + section[depth] + file.split('.')[0] + '}\n'
       if (path.extname(f) !== '.tex') {
-        ans += '\\begin{lstlisting}\n' + fs.readFileSync(f) + '\\end{lstlisting}\n'
+        ans += `\\begin{lstlisting}[language=${extensions[path.extname(f)]}]\n` + fs.readFileSync(f) + '\\end{lstlisting}\n'
       } else {
         ans += fs.readFileSync(f)
       }
