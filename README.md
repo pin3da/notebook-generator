@@ -37,7 +37,7 @@ texlive for Windows:
 
 example:
 
-    notebook-generator ./ /tmp/team_reference.pdf
+    notebook-generator ./ --output /tmp/team_reference.pdf
     notebook-generator ./ --author "Universidad Tecnologica de Pereira" --initials UTP --size 12 --columns 3 --paper a4paper --image in-silicon
 
 The second one will create a 'notebook.pdf' file in the current directory.
