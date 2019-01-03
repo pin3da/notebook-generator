@@ -91,23 +91,11 @@ function pdflatex (doc) {
   return ans
 }
 
-function pathlatex (_path) {
+function normalizeUnixStyle (currentPath) {
   if (os.type() === 'Windows_NT') {
-    let _pathlatex = ''
-    for (var i = 0; i < _path.length; i++) {
-      if (_path[i] === '\\') {
-        _pathlatex += '/'
-      } else {
-        if (_path[i] === ' ') {
-          _pathlatex += '\\ '
-        } else {
-          _pathlatex += _path[i]
-        }
-      }
-    }
-    return _pathlatex
+    return currentPath.replace(/\\/g, '/')
   }
-  return _path
+  return currentPath
 }
 
 module.exports = function (_path, options) {
@@ -117,6 +105,7 @@ module.exports = function (_path, options) {
 
   if (!options.size.endsWith('pt')) options.size += 'pt'
   if (options.image) {
+    options.image = normalizeUnixStyle(path.resolve(options.image))
     options.image = '\\centering{\\includegraphics[width=3.5cm]{' + options.image + '}}'
   } else {
     options.image = ''
@@ -130,7 +119,6 @@ module.exports = function (_path, options) {
     .replace(`\${columns}`, options.columns)
     .replace(`\${paper}`, options.paper)
     .replace(`\${image}`, options.image)
-    .replace(`\${images/}`, pathlatex(_path) + '/')
 
   template += walk(_path, 0)
   template += '\\end{multicols}\n'
