@@ -7,7 +7,7 @@ const os = require('os')
 
 const section = ['\\section{', '\\subsection{', '\\subsubsection{']
 const extensions = {
-  '.cc' : 'C++',
+  '.cc': 'C++',
   '.cpp': 'C++',
   '.c': 'C',
   '.java': 'Java',
@@ -92,15 +92,15 @@ function pdflatex (doc) {
 }
 
 function pathlatex (_path) {
-  if (os.type() === 'Windows_NT'){
-    _pathlatex = ''
-    for(var i=0; i<_path.length; i++){
+  if (os.type() === 'Windows_NT') {
+    let _pathlatex = ''
+    for (var i = 0; i < _path.length; i++) {
       if (_path[i] === '\\') {
         _pathlatex += '/'
       } else {
         if (_path[i] === ' ') {
           _pathlatex += '\\ '
-        }else {
+        } else {
           _pathlatex += _path[i]
         }
       }
