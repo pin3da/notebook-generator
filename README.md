@@ -22,7 +22,7 @@ texlive for Windows:
 
 ## Use
 
-    Usage: notebook-generator <soruce_dir> [options]
+    Usage: notebook-generator <source_dir> [options]
 
     Auto generate notebooks from your source code
 

@@ -4,7 +4,7 @@ var notebookgen = require('../notebookgen.js')
 var options = require('commander')
 
 options
-  .version('1.4.5')
+  .version('1.4.6')
   .usage('<source_dir> [options]')
   .description('Auto generate notebooks from your source code')
   .option('-a --author <name>', 'author\'s name to be added in the notebook')
