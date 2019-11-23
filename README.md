@@ -6,11 +6,13 @@
 
 ## Dependencies
 
-This generator works in both Linux and Windows, so check how to install texlive in your OS.
+This generator works in both Linux and Windows, so check how to install texlive in your OS. 
+you will need pandoc to change .md(markdown) file.
 
 texlive for Linux:
 
     aptitude install texlive
+    sudo apt install pandoc
 
 texlive for Windows:
 
