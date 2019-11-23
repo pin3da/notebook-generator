@@ -5,6 +5,62 @@ const through2 = require('through2')
 const tmp = require('tmp')
 const os = require('os')
 
+
+
+
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const fs_1 = __importDefault(require("fs"));
+function repl(filePath) {
+    const data = fs_1.default.readFileSync(filePath);
+    const _text = data.toString('utf-8');
+    const text = _text
+        .replace(/({verbatim})/g,'{lstlisting}')
+  .replace(/\\subsubsection{([^}]*.)}\\label{[^}]*.}/g, '$1')
+        .replace(/(\\subsection)/g, '\\subsubsection')
+        .replace(/(\\section)/g, '\\subsection');
+    if (text !== _text) {
+        fs_1.default.writeFileSync(filePath, text);
+        return 0;
+    }
+    return 1;
+}
+
+function repe(filePath) {
+    const data = fs_1.default.readFileSync(filePath);
+    const _text = data.toString('utf-8');
+    const text = _text.replace(/(```)[a-zA-Z]{1,}/g,'```').replace(/!\[.*\.png\)/g,'');
+    if (text !== _text) {
+        fs_1.default.writeFileSync(filePath, text);
+        return 0;
+    }
+    return 1;
+}
+
+
+function renam(str)
+{
+  let tem='';
+  for (var i = 0; i < str.length; i++) {
+    if(str[i]!=='_')tem+=str[i];
+    else tem+=' ';
+  }
+  return tem;
+}
+
+function sleep(miliseconds) {
+   var currentTime = new Date().getTime();
+
+   while (currentTime + miliseconds >= new Date().getTime()) {
+   }
+}
+
+
+
+
 const section = ['\\section{', '\\subsection{', '\\subsubsection{']
 const extensions = {
   '.cc': 'C++',
@@ -26,14 +82,34 @@ function walk (_path, depth) {
     let f = path.resolve(_path, file)
     let stat = fs.lstatSync(f)
     if (stat.isDirectory()) {
-      ans += '\n' + section[depth] + file + '}\n' + walk(f, depth + 1)
+      ans += '\n' + section[depth] + renam(file) + '}\n' + walk(f, depth + 1)
     } else if (path.extname(f) in extensions) {
-      ans += '\n' + section[depth] + file.split('.')[0] + '}\n'
       if (path.extname(f) !== '.tex') {
+        ans += '\n' + section[depth] + renam(file.split('.')[0]) + '}\n'
         ans += `\\begin{lstlisting}[language=${extensions[path.extname(f)]}]\n` + fs.readFileSync(f) + '\\end{lstlisting}\n'
       } else {
+        repe(f);
+        if(repl(f))
+        {
+          ans += '\n' + section[depth] + renam(file.split('.')[0]) + '}\n'
+        }
         ans += fs.readFileSync(f)
       }
+    }
+    else if(path.extname(f)=='.md'){
+      repe(f);
+      var exec = require('child_process').exec;
+      var cmd = 'pandoc '+f+' -o '+path.parse(f).name+'.tex';
+      exec(cmd, function(error, stdout, stderr) {});
+      sleep(100);
+      f=path.parse(f).name+'.tex';
+      if(repl(f))
+      {
+        ans += '\n' + section[depth] + renam(file.split('.')[0]) + '}\n'
+      }
+      ans += fs.readFileSync(f)
+      cmd = 'rm '+f;
+      exec(cmd, function(error, stdout, stderr) {});
     }
   })
   return ans
@@ -123,5 +199,6 @@ module.exports = function (_path, options) {
   template += walk(_path, 0)
   template += '\\end{multicols}\n'
   template += '\\end{document}'
+  // fs_1.default.writeFileSync('./notebook.tex', template);
   pdflatex(template).pipe(fs.createWriteStream(options.output))
 }
