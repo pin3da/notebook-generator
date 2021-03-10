@@ -23,8 +23,8 @@ function walk (_path, depth) {
     if (file.startsWith('.')) {
       return // hidden directory
     }
-    let f = path.resolve(_path, file)
-    let stat = fs.lstatSync(f)
+    const f = path.resolve(_path, file)
+    const stat = fs.lstatSync(f)
     if (stat.isDirectory()) {
       ans += '\n' + section[depth] + file + '}\n' + walk(f, depth + 1)
     } else if (path.extname(f) in extensions) {
@@ -44,7 +44,7 @@ function walk (_path, depth) {
  * According to some tests, in windows it must be generated 3 times.
  * */
 function genpdf (ans, texPath, tmpobj, iter) {
-  let tex = spawn('pdflatex', [
+  const tex = spawn('pdflatex', [
     '-interaction=nonstopmode',
     texPath
   ], {
@@ -57,13 +57,13 @@ function genpdf (ans, texPath, tmpobj, iter) {
   })
 
   tex.on('exit', function (code, signal) {
-    let outputFile = texPath.split('.')[0] + '.pdf'
+    const outputFile = texPath.split('.')[0] + '.pdf'
     fs.access(outputFile, function (err) {
       if (err) {
         return console.error('Not generated ' + code + ' : ' + signal)
       }
       if (iter === 0) {
-        let s = fs.createReadStream(outputFile)
+        const s = fs.createReadStream(outputFile)
         s.pipe(ans)
         s.on('close', function () {
           tmpobj.removeCallback()
@@ -76,15 +76,15 @@ function genpdf (ans, texPath, tmpobj, iter) {
 }
 
 function pdflatex (doc) {
-  let tmpobj = tmp.dirSync({ unsafeCleanup: true })
-  let texPath = path.join(tmpobj.name, '_notebook.tex')
+  const tmpobj = tmp.dirSync({ unsafeCleanup: true })
+  const texPath = path.join(tmpobj.name, '_notebook.tex')
 
-  let ans = through2()
+  const ans = through2()
   ans.readable = true
-  let input = fs.createWriteStream(texPath)
+  const input = fs.createWriteStream(texPath)
   input.end(doc)
   input.on('close', function () {
-    let iters = process.platform === 'win32' ? 2 : 1
+    const iters = process.platform === 'win32' ? 2 : 1
     genpdf(ans, texPath, tmpobj, iters)
   })
 
@@ -113,12 +113,12 @@ module.exports = function (_path, options) {
 
   let template = fs.readFileSync(path.join(__dirname, 'template_header.tex')).toString()
   template = template
-    .replace(`\${author}`, options.author)
-    .replace(`\${initials}`, options.initials)
-    .replace(`\${fontSize}`, options.size)
-    .replace(`\${columns}`, options.columns)
-    .replace(`\${paper}`, options.paper)
-    .replace(`\${image}`, options.image)
+    .replace('${author}', options.author)
+    .replace('${initials}', options.initials)
+    .replace('${fontSize}', options.size)
+    .replace('${columns}', options.columns)
+    .replace('${paper}', options.paper)
+    .replace('${image}', options.image)
 
   template += walk(_path, 0)
   template += '\\end{multicols}\n'
