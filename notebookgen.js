@@ -98,6 +98,10 @@ function normalizeUnixStyle (currentPath) {
   return currentPath
 }
 
+function templateParameter (parameter) {
+  return `\${${parameter}}`
+}
+
 module.exports = function (_path, options) {
   options.output = options.output || './notebook.pdf'
   options.author = options.author || ''
@@ -113,12 +117,12 @@ module.exports = function (_path, options) {
 
   let template = fs.readFileSync(path.join(__dirname, 'template_header.tex')).toString()
   template = template
-    .replace('${author}', options.author)
-    .replace('${initials}', options.initials)
-    .replace('${fontSize}', options.size)
-    .replace('${columns}', options.columns)
-    .replace('${paper}', options.paper)
-    .replace('${image}', options.image)
+    .replace(templateParameter('author'), options.author)
+    .replace(templateParameter('initials'), options.initials)
+    .replace(templateParameter('fontSize'), options.size)
+    .replace(templateParameter('columns'), options.columns)
+    .replace(templateParameter('paper'), options.paper)
+    .replace(templateParameter('image'), options.image)
 
   template += walk(_path, 0)
   template += '\\end{multicols}\n'
