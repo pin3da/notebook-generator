@@ -127,5 +127,5 @@ module.exports = function (_path, options) {
   template += walk(_path, 0)
   template += '\\end{multicols}\n'
   template += '\\end{document}'
-  pdflatex(template).pipe(fs.createWriteStream(options.output))
+  pdflatex(template).pipe(fs.createWriteStream(options.output));
 }
