@@ -10,7 +10,7 @@ This generator works in both Linux and Windows, so check how to install texlive 
 
 texlive for Linux:
 
-    aptitude install texlive
+    aptitude install texlive texlive-latex-extra
 
 texlive for Windows:
 

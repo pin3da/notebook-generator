@@ -22,4 +22,4 @@ if (options.args.length < 1) {
   process.exit(1)
 }
 
-notebookgen(options.args[0], options)
+notebookgen(options.args[0], options.opts())

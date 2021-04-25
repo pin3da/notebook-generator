@@ -1,0 +1,24 @@
+name: Test
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install texlive
+        run: sudo apt-get install texlive texlive-latex-extra
+      - name: Giving permissions
+        run: chmod +x -R test/
+      - name: Install node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.16.0"
+      - name: Install packages
+        run: npm ci
+      - run: npm run test
+      - run: test/run.sh
