@@ -9,6 +9,7 @@ const section = ['\\section{', '\\subsection{', '\\subsubsection{']
 const extensions = {
   '.cc': 'C++',
   '.cpp': 'C++',
+  '.hpp': 'C++',
   '.c': 'C',
   '.java': 'Java',
   '.py': 'Python',
