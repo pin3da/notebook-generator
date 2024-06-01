@@ -1,7 +1,5 @@
 # notebook-generator
 
-[![Build Status](https://travis-ci.org/pin3da/notebook-generator.svg?branch=master)](https://travis-ci.org/pin3da/notebook-generator)
-
 (Auto) generate notebooks from your source code. Useful for ACM-ICPC
 
 ## Dependencies
