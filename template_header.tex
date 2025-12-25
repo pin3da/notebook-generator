@@ -1,4 +1,5 @@
-\documentclass[${fontSize},${paper},landscape,twosided]{extarticle}
+\documentclass[${fontSize},${paper},${orientation},twosided]{extarticle}
+\UseRawInputEncoding
 
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
@@ -11,8 +12,13 @@
 \usepackage{geometry}
 \usepackage{multicol}
 \usepackage{graphicx}
+\usepackage{listingsutf8} % allow UTF-8 in lstlisting
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{eso-pic}
+\hypersetup{hidelinks} % remove colored boxes around links
 
-\geometry{verbose,landscape,${paper},tmargin=2cm,bmargin=2cm,lmargin=1cm,rmargin=1cm}
+\geometry{verbose,${paper},${orientation},tmargin=1.5cm,bmargin=1.5cm,lmargin=0.8cm,rmargin=0.8cm,headheight=14pt,footskip=14pt}
 
 \usepackage{listings}
 \usepackage{color}
@@ -20,6 +26,7 @@
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{lightgray}{rgb}{0.95,0.95,0.95}
 
 %% Golang definition for listings
 %% http://github.io/julienc91/lstlistings-golang
@@ -50,7 +57,7 @@
   belowskip=3mm,
   showstringspaces=false,
   columns=flexible,
-  basicstyle={\small\ttfamily},
+  basicstyle={\large\ttfamily},
   numbers=none,
   numberstyle=\tiny\color{gray},
   keywordstyle=\color{blue},
@@ -60,24 +67,50 @@
   breakatwhitespace=true,
   tabsize=2,
   keepspaces=true,
+  inputencoding=utf8,
+  extendedchars=true,
+  backgroundcolor=\color{lightgray},
 }
 
-\setlength{\columnsep}{0.5in}
+\setlength{\columnsep}{0.7cm}
 \setlength{\columnseprule}{1px}
 
 \usepackage{fancyhdr}
+\setlength{\headheight}{14pt}
+\setlength{\footskip}{14pt}
 \pagestyle{fancy}
 \fancyhf{}
 \renewcommand{\headrulewidth}{0pt}
-\fancyhead[R]{\thepage}
-\fancyhead[L]{${initials}}
+\fancyhead[R]{}
+\fancyhead[L]{}
+\fancyfoot[L]{\fbox{\Large\thepage}}
+\fancyfoot[R]{\fbox{\Large\thepage}}
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \fancyhead[R]{}%
+  \fancyhead[L]{}%
+  \fancyfoot[L]{\fbox{\Large\thepage}}%
+  \fancyfoot[R]{\fbox{\Large\thepage}}%
+}
 
+% Add thick border to every page
+\AddToShipoutPictureBG{%
+  \AtPageLowerLeft{%
+    \begin{tikzpicture}[overlay,remember picture]
+      \draw[line width=2pt] 
+        (0,0) rectangle (\paperwidth,\paperheight);
+    \end{tikzpicture}%
+  }%
+}
 
 \begin{document}
 
-\title{Team notebook}
+\title{${title}}
 \author{${author}}
 \maketitle
+\thispagestyle{fancy}
+\pagestyle{fancy}
 \begin{multicols}{${columns}}
 ${image}
 \tableofcontents
